@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0)
-project(some C)
+project(tea C)
 
 # Optional definitions set:
 # OPTION_GLES           for OpenGLES3.0 instead of OpenGL3.3
@@ -15,7 +15,7 @@ project(some C)
 # NDEBUG                is used at a few points, too
 # MATHC_NO_PRINT_COLOR  disable colored mathc prints
 # RHC_LOG_DO_NOT_USE_COLOR          dont use colored logs
-# RHC_LOG_DO_NOT_PRINT_TIME_FILE    disable time and file in logs
+# RHC_LOG_DO_NOT_PRINT_TIME_FILE    disable info and file in logs
 # NUKLEAR_SCALE=3.0     for small hd screens (smartphones)
 
 set(CMAKE_C_STANDARD 11)
@@ -36,7 +36,7 @@ file(GLOB SRCS
         "${PROJECT_SOURCE_DIR}/src/p/*"
         )
 
-add_executable(some ${SRCS})
+add_executable(tea ${SRCS})
 
 
 # set default configuration
@@ -73,7 +73,7 @@ endif()
 #add_definitions(-DOPTION_FETCH)
 #add_definitions(-DOPTION_SOCKET)
 #add_definitions(-DOPTION_TTF)
-target_link_libraries(some m)
+target_link_libraries(tea m)
 
 # windows
 if (PLATFORM_MINGW)
@@ -88,12 +88,12 @@ if (PLATFORM_MINGW)
     find_library(GLEW_LIB glew32 REQUIRED)
     find_library(GLU_LIB glu32 REQUIRED)
 
-    target_link_libraries(some m
+    target_link_libraries(tea m
             mingw32
             SDL2main
             SDL2
             SDL2_image
-            #SDL2_mixer
+            SDL2_mixer
             #SDL2_net
             #SDL2_ttf
             #curl
@@ -118,7 +118,7 @@ if (PLATFORM_UNIX)
     
     find_package(SDL2 REQUIRED)
     find_library(SDL2_IMAGE_LIBRARIES SDL2_image REQUIRED)
-    #find_library(SDL2_MIXER_LIBRARIES SDL2_mixer REQUIRED)
+    find_library(SDL2_MIXER_LIBRARIES SDL2_mixer REQUIRED)
     #find_library(SDL2_NET_LIBRARIES SDL2_net REQUIRED)
     #find_library(SDL2_TTF_LIBRARIES SDL2_ttf REQUIRED)
 
@@ -126,10 +126,10 @@ if (PLATFORM_UNIX)
 
     find_library(GL_LIB GL REQUIRED)
 
-    target_link_libraries(some
+    target_link_libraries(tea
             ${SDL2_LIBRARIES}
             ${SDL2_IMAGE_LIBRARIES}
-            #${SDL2_MIXER_LIBRARIES}
+            ${SDL2_MIXER_LIBRARIES}
             #${SDL2_NET_LIBRARIES}
             #${SDL2_TTF_LIBRARIES}
             #${CURL_LIBRARIES}
@@ -140,7 +140,7 @@ if (PLATFORM_UNIX)
     find_library(GLEW_LIB GLEW)
     if (GLEW_LIB)
         add_definitions(-DOPTION_GLEW)
-        target_link_libraries(some ${GLEW_LIB})
+        target_link_libraries(tea ${GLEW_LIB})
     endif ()
 endif()
 
@@ -158,7 +158,7 @@ if (PLATFORM_MOBILE)
 
     find_package(SDL2 REQUIRED)
     find_package(SDL2_image REQUIRED)
-    #find_package(SDL2_mixer REQUIRED)
+    find_package(SDL2_mixer REQUIRED)
     #find_package(SDL2_net REQUIRED)
     #find_package(SDL2_ttf REQUIRED)
 
@@ -166,10 +166,10 @@ if (PLATFORM_MOBILE)
 
     find_library(GLES_LIB GLESv3 REQUIRED)
 
-    target_link_libraries(some
+    target_link_libraries(tea
             ${SDL2_LIBRARIES}
             ${SDL2_IMAGE_LIBRARIES}
-            #${SDL2_MIXER_LIBRARIES}
+            ${SDL2_MIXER_LIBRARIES}
             #${SDL2_NET_LIBRARIES}
             #${SDL2_TTF_LIBRARIES}
             #${CURL_LIBRARIES}
